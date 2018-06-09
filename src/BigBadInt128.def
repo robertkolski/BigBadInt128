@@ -1,3 +1,4 @@
 LIBRARY BigBadInt128
 EXPORTS
-   BigBadAdd128
+   Int128Add
+   Int128ToString

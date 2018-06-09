@@ -1,12 +1,12 @@
 _text SEGMENT  
 
-public BigBadAdd128
+public Int128Add
 
-; BigBadAdd128
+; Int128Add
 ; ---------
-; RCX - QWORD - PTR to Int128 (dest)
-; RDX - QWORD - PTR to Int128 (source)
-; R8  - unused
+; RCX - QWORD - PTR to Int128 (input1)
+; RDX - QWORD - PTR to Int128 (input2)
+; R8  - QWORD - PTR to Int128 (result)
 ; R9  - unused
 ; ---------
 ; RAX volatile
@@ -14,11 +14,11 @@ public BigBadAdd128
 ; R11 volatile
 ;----------
 ; C Header
-; void BigBadAdd128(_m128* dest, _m128* const source )
+; void Int128Add(_m128* const input1, _m128* const input2, _m128* result )
 ;----------
 ; source remains unchanged
-; performs *RCX = *RCX + *RDX in 128 bit mode
-BigBadAdd128 PROC FRAME  
+; performs *R8 = *RCX + *RDX in 128 bit mode
+Int128Add PROC FRAME  
    push rbp  
 .pushreg rbp  
    sub rsp, 010h  
@@ -30,13 +30,13 @@ BigBadAdd128 PROC FRAME
    mov r10, QWORD PTR [rcx+8]
    add rax, QWORD PTR [rdx]
    adc r10, QWORD PTR [rdx+8]
-   mov QWORD PTR [rcx], rax
-   mov QWORD PTR [rcx+8], r10
+   mov QWORD PTR [r8], rax
+   mov QWORD PTR [r8+8], r10
 
    ; epilog  
    add rsp, 010h  
    pop rbp  
    ret  
-BigBadAdd128 ENDP  
+Int128Add ENDP  
 _text ENDS  
 END
