@@ -2,4 +2,5 @@ LIBRARY BigBadInt128
 EXPORTS
    Int128Add
    Int128Sub
+   Int128Mul
    Int128ToString
