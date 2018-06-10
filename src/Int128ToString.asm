@@ -14,10 +14,14 @@ public Int128ToString
 ; R11 volatile
 ;----------
 ; C Header
-; void Int128ToString(_m128* input, wchar* lpwszBuffer )
+; wchar* Int128ToString(_m128* input, wchar* lpwszBuffer )
 ;----------
 ; input remains unchanged
 ; lpwszBuffer the unicode string buffer, it should be 82 or more bytes long
+; ---------
+; returns begining of string
+; ---------
+; the string is written backwards in the buffer and might not begin in the place assumed
 Int128ToString PROC FRAME  
    push rbp  
 .pushreg rbp 
@@ -34,7 +38,10 @@ Int128ToString PROC FRAME
    mov QWORD PTR [rbp+8], rax
 
    mov r10, rdx
+   add r10, 80
    mov r11, 10
+   mov dx, 0
+   mov WORD PTR [r10], dx
 
 keep_looping:
    xor rdx, rdx ; rdx = 0
@@ -47,8 +54,8 @@ keep_looping:
    div r11
 
    add dx, '0'
+   sub r10, 2
    mov WORD PTR [r10], dx
-   inc r10
    mov QWORD PTR [rbp], rax
 
    xor rax, rax
@@ -57,8 +64,7 @@ keep_looping:
    cmp [rbp], rax
    jne keep_looping
 
-   mov dx, 0
-   mov WORD PTR [rdi], dx
+   mov rax, r10
 
    ; epilog  
    add rsp, 010h  
