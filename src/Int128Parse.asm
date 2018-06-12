@@ -96,7 +96,7 @@ start_loop:
    jne overflow
    
    add r10, 2
-   mov dx, WORD PTR [rcx+10]
+   mov dx, WORD PTR [rcx+r10]
    cmp dx, 0
    je  done   
    jmp keep_looping
