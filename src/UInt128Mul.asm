@@ -1,8 +1,8 @@
 _text SEGMENT  
 
-public Int128Mul
+public UInt128Mul
 
-; Int128Mul
+; UInt128Mul
 ; ---------
 ; RCX - QWORD - PTR to Int128 (input1)
 ; RDX - QWORD - PTR to Int128 (input2)
@@ -14,11 +14,11 @@ public Int128Mul
 ; R11 volatile
 ;----------
 ; C Header
-; void Int128Mul(_m128* const input1, _m128* const input2, _m256* result )
+; void UInt128Mul(_int128* const input1, _int128* const input2, _int256* result )
 ;----------
 ; source remains unchanged
 ; performs *R8 = *RCX * *RDX in 128 bit mode resulting in 256 bits
-Int128Mul PROC FRAME  
+UInt128Mul PROC FRAME  
    push rbp  
 .pushreg rbp
    push rdx
@@ -28,9 +28,9 @@ Int128Mul PROC FRAME
    mov rbp, rsp  
 .setframe rbp, 0  
 .endprolog  
-;  _m256 temp1 = 20h bytes rbp,    rbp+8,  rbp+16, rbp+24
-;  _m256 temp2 = 20h bytes rbp+32, rbp+40, rbp+48, rbp+56
-;  _m128 input2 shadow = 16 bytes (10h) rbp+64, rbp+72
+;  _int256 temp1 = 20h bytes rbp,    rbp+8,  rbp+16, rbp+24
+;  _int256 temp2 = 20h bytes rbp+32, rbp+40, rbp+48, rbp+56
+;  _int128 input2 shadow = 16 bytes (10h) rbp+64, rbp+72
    
    ; temp1 = temp2 = 0
    xor rax, rax
@@ -111,6 +111,6 @@ add_temp:
    mov QWORD PTR [rbp+24], rax
    
    ret
-Int128Mul ENDP  
+UInt128Mul ENDP  
 _text ENDS  
 END
