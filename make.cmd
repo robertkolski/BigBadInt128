@@ -1,14 +1,14 @@
 cd src
 
-ml64 dllmain.asm /c /Fo"dllmain.obj"
-ml64 Int128Add.asm /c /Fo"Int128Add.obj"
-ml64 Int128Sub.asm /c /Fo"Int128Sub.obj"
-ml64 Int128Mul.asm /c /Fo"Int128Mul.obj"
-ml64 Int128ToString.asm /c /Fo"Int128ToString.obj"
-ml64 Int128Parse.asm /c /Fo"Int128Parse.obj"
-ml64 UInt128Mul.asm /c /Fo"UInt128Mul.obj"
-ml64 UInt128ToString.asm /c /Fo"UInt128ToString.obj"
-ml64 UInt128Parse.asm /c /Fo"UInt128Parse.obj"
+ml64 /c /Fo"dllmain.obj" /Fldllmain.lst /Sa dllmain.asm
+ml64 /c /Fo"Int128Add.obj" /FlInt128Add.lst /Sa Int128Add.asm
+ml64 /c /Fo"Int128Sub.obj" /FlInt128Sub.lst /Sa Int128Sub.asm
+ml64 /c /Fo"Int128Mul.obj" /FlInt128Mul.lst /Sa Int128Mul.asm
+ml64 /c /Fo"Int128ToString.obj" /FlInt128ToString.lst /Sa Int128ToString.asm 
+ml64 /c /Fo"Int128Parse.obj" /FlInt128Parse.lst /Sa Int128Parse.asm
+ml64 /c /Fo"UInt128Mul.obj" /FlUInt128Mul.lst /Sa UInt128Mul.asm
+ml64 /c /Fo"UInt128ToString.obj" /FlUInt128ToString.lst /Sa UInt128ToString.asm
+ml64 /c /Fo"UInt128Parse.obj" /FlUInt128Parse.lst /Sa UInt128Parse.asm 
 
 if exist "bin\Release" rmdir bin\Release /s /q
 mkdir bin\Release
