@@ -2,12 +2,12 @@ include BigBadInt128.inc
 
 _text SEGMENT  
 
-public Int128Add
+public UInt128Add
 
 
-; Int128Add
+; UInt128Add
 ; -------------------------------------
-; Signed add.
+; Unsigned add.
 ; RCX - PTR to OWORD (return value buffer)
 ; RDX - PTR to OWORD (input1)
 ; R8  - PTR to OWORD (input2)
@@ -18,15 +18,15 @@ public Int128Add
 ; R11 volatile
 ;--------------------------------------
 ; C Header - pseudocode prototype
-; Int128 Int128Add(Int128* input1, Int128* input2)
+; UInt128 UInt128Add(UInt128* input1, UInt128* input2)
 ;--------------------------------------
-; C# types (without full implementation here):
-; public struct Int128
+; C# type (without full implementation here):
+; public struct UInt128
 ; {
-;    private Int64 loQWORD;
-;    private Int64 hiQWORD;
+;    private UInt64 loQWORD;
+;    private UInt64 hiQWORD; 
 ;    [DllImport("BigBadInt128.dll")]
-;    private static extern Int128 Int128Add(ref Int128 addend1, ref Int128 addend2);
+;    private static extern UInt128 UInt128Add(ref UInt128 input1, ref UInt128 input2);
 ;    // public methods not shown
 ; }
 ;--------------------------------------
@@ -37,16 +37,16 @@ public Int128Add
 ; this is a leaf function
 ; it does not need any stack space
 ; -------------------------------------
-Int128Add PROC
-   mov r10, (Int128 PTR [rdx]).loQWORD
-   mov r11, (Int128 PTR [rdx]).hiQWORD
-   add r10, (Int128 PTR [r8]).loQWORD
-   adc r11, (Int128 PTR [r8]).hiQWORD
-   mov (Int128 PTR [rcx]).loQWORD, r10
-   mov (Int128 PTR [rcx]).hiQWORD, r11
+UInt128Add PROC
+   mov r10, (UInt128 PTR [rdx]).loQWORD
+   mov r11, (UInt128 PTR [rdx]).hiQWORD
+   add r10, (UInt128 PTR [r8]).loQWORD
+   adc r11, (UInt128 PTR [r8]).hiQWORD
+   mov (UInt128 PTR [rcx]).loQWORD, r10
+   mov (UInt128 PTR [rcx]).hiQWORD, r11
    mov rax, rcx
    ret  
-Int128Add ENDP  
+UInt128Add ENDP  
 
 _text ENDS  
 END

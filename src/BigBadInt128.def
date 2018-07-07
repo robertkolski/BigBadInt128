@@ -5,6 +5,8 @@ EXPORTS
    Int128Mul
    Int128ToString
    Int128Parse
+   UInt128Add
+   UInt128Sub
    UInt128Mul
    UInt128ToString
    UInt128Parse

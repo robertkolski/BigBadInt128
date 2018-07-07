@@ -33,7 +33,11 @@ UInt256 ENDS
 ; source remains unchanged
 ; performs *R8 = *RCX * *RDX in 128 bit mode resulting in 256 bits
 UInt128Mul PROC result:PTR UInt128, input1:PTR UInt128, input2:PTR UInt128
-   ; no need to save shadow space yet
+   ; save shadow space
+   mov result, rcx ; this saved shadow parameter is actually used
+   mov input1, rdx ; saved but not used
+   mov input2, r8  ; saved but not used
+
    cmp (UInt128 PTR [rdx]).hiQWORD, 0
    jne long_math
    cmp (UInt128 PTR [r8]).hiQWORD, 0
@@ -50,11 +54,6 @@ UInt128Mul PROC result:PTR UInt128, input1:PTR UInt128, input2:PTR UInt128
    ret
 
 long_math:
-   ; save shadow space
-   mov result, rcx ; this saved shadow parameter is actually used
-   mov input1, rdx ; saved but not used
-   mov input2, r8  ; saved but not used
-
    push r12
    push r13
    push r14
